@@ -161,7 +161,7 @@ $('#btnCalc').on('click', function(){
         var b = unalignedPower(trainerPower, trainerLevel, attribute1Val, attribute2Val, attribute3Val, bonusPower);
         var myMinPwr = Math.floor(b * 0.9);
         var myMaxPwr = Math.floor(b * 1.1);
-        var str = `Your power: ${myMinPwr} ~ ${myMaxPwr}}`;
+        var str = `Your power: ${myMinPwr} ~ ${myMaxPwr}`;
         $('#lbResult').html(str);
         winRate = (1 - (maxEnemyPwr - myMinPwr)/myMaxPwr) * 100;
     }
