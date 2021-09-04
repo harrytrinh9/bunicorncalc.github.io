@@ -1,21 +1,30 @@
 //
 // This script was created by HarryTrinh, please don't make a copy with out my credit
 //
+
+
 function alignedPower(trainerElement, trainerLevel, trainerPower, attribute1, attribute2, attribute3, attribute1Val=0, attribute2Val=0, attribute3Val=0, bonusPower=0){
     attribute1Val = calcAttribute(trainerElement, attribute1, attribute1Val);
     attribute2Val = calcAttribute(trainerElement, attribute2, attribute2Val);
     attribute3Val = calcAttribute(trainerElement, attribute3, attribute3Val);
-    var attributeTotal = attribute1Val + attribute2Val +  attribute3Val;
+    var attributeTotal = attribute1Val + attribute2Val + attribute3Val;
     var result = ((attributeTotal + 1) * trainerPower) + bonusPower + 15 * (trainerLevel - 1);
     return result;
 }
 
+function unalignedPower(trainerPower, trainerLevel, attribute1Val=0, attribute2Val=0, attribute3Val=0, bonusPower=0){
+   var attributeTotal = attribute1Val + attribute2Val +  attribute3Val;
+   var result = (((attributeTotal * 0.0025) + 1 ) * trainerPower) + bonusPower + 15 * (trainerLevel - 1);
+   return result;
+}
+
+//Tính chỉ số cộng hưởng nguyên tố thuộc tính của pet vs trainer
 function calcAttribute(trainerElement, attributeElement,  attributeValue){
-    // STR  -  lửa
-    // DEX   -  Đất
-    // INT  -   Nước
-    // CHA -   Khí
-    // PWR- trung tính
+    // STR  -  Lửa
+    // DEX  -  Đất
+    // INT  -  Nước
+    // CHA  -  Khí
+    // PWR  -  trung tính
     if (attributeElement != trainerElement){
       return attributeValue * 0.0025
     }
@@ -29,43 +38,33 @@ function calcAttribute(trainerElement, attributeElement,  attributeValue){
     } 
 }
 
-// trainerElement: Hệ của con Trainer
-// 
+// STR > DEX > CHA > INT > STR
+const elements = {'STR' : 5, 'DEX': 4, 'CHA': 3, 'INT': 1}
+
+// Tính element Bonus dưa vào xung khắc các nguyên tố 
 function elementBonus(trainerElement, bunicornElement, enemyElement){
     var TraitBonus = 1
-    if (trainerElement == bunicornElement)
-    {
+    var t = elements[trainerElement];
+    var b = elements[bunicornElement];
+    var e = elements[enemyElement];
+    if (t == b){
         TraitBonus += 0.075
     }
-
-    // STR > DEX > CHAR > INT > STR
-    if (trainerElement === 'STR' && enemyElement === 'DEX'){ // Lửa > Đất
-        TraitBonus += 0.075
-    }
-    else if(trainerElement === 'DEX' && enemyElement === 'CHA'){ // Đất > Khí
-        TraitBonus += 0.075
-    }
-    else if(trainerElement === 'CHA' && enemyElement == 'INT'){ // Khí > Nước
-        TraitBonus += 0.075
-    }
-    else if(trainerElement === 'INT' && enemyElement === 'STR'){ //Nước > lửa
-        TraitBonus += 0.075
-    }
-    
-    if(trainerElement === 'STR' && enemyElement == 'INT'){ //Lửa < nước
+    //Xét trường hợp đặc biệt của Lửa vs Nước
+    if(trainerElement == 'STR' && enemyElement == 'INT'){
         TraitBonus -= 0.075
     }
-    else if(trainerElement === 'INT' && enemyElement === 'CHA'){ // Nước < khí
-        TraitBonus -= 0.075
-    }
-    else if(trainerElement === 'CHA' && enemyElement ==='DEX'){ // Khí < Đất
-        TraitBonus -= 0.075
-    }
-    else if(trainerElement === 'DEX' && enemyElement === 'STR'){ //Nước < Khí
-        TraitBonus -= 0.075
+    else{
+        if(t > e){
+            TraitBonus += 0.075
+        }
+        if(t < e){
+            TraitBonus -= 0.075
+        }
     }
     return TraitBonus
 }
+
 
 
 function finalPowerValue(trainerElement, trainerLevel, trainerPower, bunicornElement, attribute1, attribute2, attribute3, attribute1Val=0, attribute2Val=0, attribute3Val=0, bonusPower=0, enemyElement){
@@ -76,10 +75,7 @@ function finalPowerValue(trainerElement, trainerLevel, trainerPower, bunicornEle
 }
 
 $(document).ready(function() {
-    // var a = finalPowerValue('DEX', 1, 1000, 'DEX', 'PWR', 'DEX', 'PWR', 293,0,0,0, 'CHA' )
-   
-   // var a = elementBonus('STR', 'STR', 'DEX')
-//    console.log(a);
+
 });
 
 $('#txtEnemyPower').on('input', function(){
@@ -88,7 +84,6 @@ $('#txtEnemyPower').on('input', function(){
     $('#lbEnemyPwrRange').html(output);
     $('#lbResult').html('');
     $('#lbWinRate').html('');
-
 })
 
 $('#btnCalc').on('click', function(){
