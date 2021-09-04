@@ -117,7 +117,7 @@ $('#btnCalc').on('click', function(){
         return;
     }
     if (attribute1 == ''){
-        MsgBox("Please select bunicorn LB element", '', 'error')
+        MsgBox("Please select bunicorn attribute 1 element", '', 'error')
         return;
     }
     if(attribute1Val == ''){
