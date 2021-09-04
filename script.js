@@ -78,13 +78,7 @@ $(document).ready(function() {
 
 });
 
-$('#txtEnemyPower').on('input', function(){
-    var pwr = $('#txtEnemyPower').val();
-    var output = `Enemy power: ${Math.floor(pwr * 0.9)} ~ ${Math.floor(pwr * 1.1)}`;
-    $('#lbEnemyPwrRange').html(output);
-    $('#lbResult').html('');
-    $('#lbWinRate').html('');
-})
+
 
 $('#btnCalc').on('click', function(){
     //Trainer
@@ -147,6 +141,29 @@ $('#btnCalc').on('click', function(){
     var maxEnemyPwr = Math.floor(enemyPwr * 1.1);
     var winRate = (1 - (maxEnemyPwr - a[0]) / a[1]) * 100;
     $('#lbWinRate').html('Win rate: ' + Math.floor(winRate) + '%');
+    $('#lbWinRate').prop('class', '');
+    if(winRate < 90){
+        $('#lbWinRate').addClass('text-danger');
+        Swal.fire({
+            icon: 'warning',
+            title: `Win rate: ${Math.floor(winRate)}%`,
+            timer: 3000,
+            position: 'top',
+            toast: true,
+            showConfirmButton: false
+        });
+    }
+    else{
+        $('#lbWinRate').addClass('text-success');
+        Swal.fire({
+            icon: 'success',
+            title: `Win rate: ${Math.floor(winRate)}%`,
+            timer: 3000,
+            position: 'top',
+            toast: true,
+            showConfirmButton: false
+        });
+    }
 })
 
 function MsgBox(title, message, icon){
@@ -235,6 +252,17 @@ $('#txtEnemyElement').on('change', function(){
     else if(data == "INT"){
         img.attr('src', 'assets/water-icon.png');
     }
+})
+
+$('#txtEnemyPower').on('input', function(){
+    var pwr = $('#txtEnemyPower').val();
+    if (isNaN(pwr)){
+        MsgBox('Only input the number to this field.', `You already inputed: ${pwr}`, 'error')
+    }
+    var output = `Enemy power: ${Math.floor(pwr * 0.9)} ~ ${Math.floor(pwr * 1.1)}`;
+    $('#lbEnemyPwrRange').html(output);
+    $('#lbResult').html('');
+    $('#lbWinRate').html('');
 })
 
 function copyAddr(add){
