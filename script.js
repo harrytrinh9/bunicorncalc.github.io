@@ -1,5 +1,5 @@
 //
-// This scrip was created by HarryTrinh, please don't make a copy with out my credit
+// This script was created by HarryTrinh, please don't make a copy with out my credit
 //
 function alignedPower(trainerElement, trainerLevel, trainerPower, attribute1, attribute2, attribute3, attribute1Val=0, attribute2Val=0, attribute3Val=0, bonusPower=0){
     attribute1Val = calcAttribute(trainerElement, attribute1, attribute1Val);
@@ -15,7 +15,7 @@ function calcAttribute(trainerElement, attributeElement,  attributeValue){
     // DEX   -  Đất
     // INT  -   Nước
     // CHA -   Khí
-    //  PWR- trung tính
+    // PWR- trung tính
     if (attributeElement != trainerElement){
       return attributeValue * 0.0025
     }
@@ -86,6 +86,9 @@ $('#txtEnemyPower').on('input', function(){
     var pwr = $('#txtEnemyPower').val();
     var output = `Enemy power: ${Math.floor(pwr * 0.9)} ~ ${Math.floor(pwr * 1.1)}`;
     $('#lbEnemyPwrRange').html(output);
+    $('#lbResult').html('');
+    $('#lbWinRate').html('');
+
 })
 
 $('#btnCalc').on('click', function(){
@@ -156,7 +159,7 @@ function MsgBox(title, message, icon){
         title: title,
         text: message,
         icon: icon,
-        confirmButtonText: 'Cool'
+        //confirmButtonText: 'Cool'
       })
 }
 
@@ -245,7 +248,7 @@ function copyAddr(add){
         icon: 'success',
         title: 'Address copied',
         text: 'Thanks for donate',
-        timer: 1500,
+        timer: 3000,
         position: 'top',
         toast: true,
         showConfirmButton: false
