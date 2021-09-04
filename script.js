@@ -247,6 +247,7 @@ function copyAddr(add){
         text: 'Thanks for donate',
         timer: 1500,
         position: 'top',
-        toast: true
+        toast: true,
+        showConfirmButton: false
     });
 }
