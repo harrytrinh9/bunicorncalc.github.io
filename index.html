@@ -13,13 +13,13 @@
 <body>
   <div class="container-fluid">
     <div class='justify-content-center mb-3 mt-3'>
-      <img src="assets/logo.png" height="90px">
+      <img src="assets/logo.png" alt="logo" height="90px">
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
       <div class="col">
         <div class="card">
           <h5 class="card-header">
-            <img id='imgTrainerElement' class="ml-2"> 
+            <img id='imgTrainerElement' alt="" class="ml-2"> 
             Trainer
         </h5>
           <div class="card-body">
@@ -27,7 +27,7 @@
               <div class="col-md-12">
                 <div class="mb-3">
                   <label for="txtTrainerElement">Element</label>
-                  <select id='txtTrainerElement' class="form-select">
+                  <select id='txtTrainerElement' class="form-select" title="Select trainer element">
                     <option value="">--</option>
                     <option value="STR">Fire</option>
                     <option value="DEX">Earth</option>
@@ -55,7 +55,7 @@
       <div class="col">
         <div class="card">
           <h5 class="card-header">
-            <img id='imgBunicornElement' class="ml-2"> 
+            <img id='imgBunicornElement' alt="" class="ml-2"> 
             Bunicorn
         </h5>
           <div class="card-body">
@@ -65,7 +65,7 @@
                   <label for="txtBunicornElement">
                       Element
                   </label>
-                  <select id='txtBunicornElement' class="form-select">
+                  <select id='txtBunicornElement' class="form-select" title="Select bunicorn element">
                     <option value="">--</option>
                     <option value="STR">Fire</option>
                     <option value="DEX">Earth</option>
@@ -156,7 +156,7 @@
       <div class="col">
         <div class="card">
           <h5 class="card-header">
-            <img id='imgEnemyElement' class="ml-2"> 
+            <img id='imgEnemyElement' alt="" class="ml-2"> 
             Enemy
           </h5>
           <div class="card-body">
@@ -188,8 +188,8 @@
       </div>
       <div class="col">
         <div class="card">
+          <h5 class="card-header">Result</h5>
           <div class="card-body">
-            <h5 class="card-title">Result</h5>
             <div class="row">
                 <div class="col-md-6">
                     <button type="button" id='btnCalc' class="btn btn-success">
@@ -201,11 +201,11 @@
               <div class="col-md-12 m-2">
                 <h6 id='lbEnemyPwrRange'></h6>
                 <h6 id='lbResult'></h6>
-                <h5 id='lbWinRate'></h5>
+                <h4 id='lbWinRate'></h5>
             </div>
             </div>
             <div class="row">
-                <img src="assets/elements.png" height="50px" width="500px"> 
+                <img src="assets/elements.png" alt="" height="50px" width="500px"> 
             </div>
           </div>
         </div>
@@ -215,7 +215,7 @@
     <p class="text-center">If you like my work, you can give me a cup of coffee (BUNI) to my wallet</p>
     <p class="text-primary text-center" style="font-size: small;">0x54529107acD03401C7d9E12DEbf7fD30c5e75D62 <i class="btn bi-clipboard" style="font-weight: bold;" onclick="copyAddr('0x54529107acD03401C7d9E12DEbf7fD30c5e75D62')"></i></p>
     <p class="text-center">(c) 2021 harrytrinh</p>
-    </div>
+  </div>
   </div>
       <!-- JavaScript Bundle with Popper -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
