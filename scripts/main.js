@@ -3,7 +3,7 @@
 //
 
 
-function alignedPower(trainerElement, trainerLevel=1, trainerPower=1000, attribute1, attribute2, attribute3, attribute1Val=0, attribute2Val=0, attribute3Val=0, bonusPower=0){
+function alignedPower(trainerElement, trainerLevel, trainerPower, attribute1, attribute2, attribute3, attribute1Val, attribute2Val, attribute3Val, bonusPower){
     attribute1Val = parseInt(attribute1Val);
     attribute2Val = parseInt(attribute2Val);
     attribute3Val = parseInt(attribute3Val);
@@ -42,11 +42,9 @@ function calcAttribute(trainerElement, attributeElement,  attributeValue){
     if (attributeElement != trainerElement){
       return attributeValue * 0.0025
     }
-    
     if (attributeElement == 'PWR'){
        return attributeValue * 0.002575
     }
-
     if(attributeElement == trainerElement){
        return attributeValue * 0.002675
     } 
@@ -85,7 +83,8 @@ function finalPowerValue(trainerElement, trainerLevel=1, trainerPower=0, bunicor
     var alignedPwr = alignedPower(trainerElement, trainerLevel, trainerPower, attribute1, attribute2, attribute3, attribute1Val, attribute2Val, attribute3Val, bonusPower);
     var elementBns = elementBonus(trainerElement, bunicornElement, enemyElement);
     var final = alignedPwr * elementBns;
-    return [Math.floor(final * 0.9), Math.floor(final * 1.1)]
+    // return [Math.floor(final * 0.9), Math.floor(final * 1.1)]
+    return [final * 0.9, final * 1.1];
 }
 
 $(document).ready(function() {
@@ -147,13 +146,15 @@ $('#btnCalc').on('click', function(){
         return;
     }
     var enemyPwr = $('#txtEnemyPower').val();
-    var maxEnemyPwr = Math.floor(enemyPwr * 1.1);
-    var winRate = 0;
+    var minEnemyPwr = parseInt(enemyPwr) * 0.9;
+    var maxEnemyPwr = parseInt(enemyPwr) * 1.1;
+    var winRate = 0.0;
     if(trainerElement == bunicornElement){
-        var a = finalPowerValue(trainerElement, trainerLevel, trainerPower, bunicornElement,  attribute1, attribute2, attribute3, attribute1Val, attribute2Val, attribute3Val, bonusPower, enemyElement)
-        var str = `Your power: ${a[0]} ~ ${a[1]}`;
+        var pwr = finalPowerValue(trainerElement, trainerLevel, trainerPower, bunicornElement,  attribute1, attribute2, attribute3, attribute1Val, attribute2Val, attribute3Val, bonusPower, enemyElement)
+        var str = `Your power: ${Math.floor(pwr[0])} ~ ${Math.floor(pwr[1])}`;
         $('#lbResult').html(str);
-        winRate = (1 - (maxEnemyPwr - a[0]) / a[1]) * 100;
+        // winRate1 = (1.0 - (maxEnemyPwr - pwr[0]) / pwr[1]) * 100.0;
+        winRate = winRateCalc(pwr[0], pwr[1], minEnemyPwr, maxEnemyPwr);
     }
     else{
         var b = unalignedPower(trainerPower, trainerLevel, attribute1Val, attribute2Val, attribute3Val, bonusPower);
@@ -161,33 +162,23 @@ $('#btnCalc').on('click', function(){
         var myMaxPwr = Math.floor(b * 1.1);
         var str = `Your power: ${myMinPwr} ~ ${myMaxPwr}`;
         $('#lbResult').html(str);
-        winRate = (1 - (maxEnemyPwr - myMinPwr)/myMaxPwr) * 100;
+        // winRate1 = (1 - (maxEnemyPwr - myMinPwr)/myMaxPwr) * 100;
+        winRate = winRateCalc(myMinPwr, myMaxPwr, minEnemyPwr, maxEnemyPwr);
     }
     $('#lbWinRate').html('Win rate: ' + Math.floor(winRate) + '%');
     $('#lbWinRate').prop('class', '');
-    if(winRate < 90){
-        $('#lbWinRate').addClass('text-danger');
-        Swal.fire({
-            icon: 'warning',
-            title: `Win rate: ${Math.floor(winRate)}%`,
-            timer: 3000,
-            position: 'top',
-            toast: true,
-            showConfirmButton: false
-        });
-    }
-    else{
-        $('#lbWinRate').addClass('text-success');
-        Swal.fire({
-            icon: 'success',
-            title: `Win rate: ${Math.floor(winRate)}%`,
-            timer: 3000,
-            position: 'top',
-            toast: true,
-            showConfirmButton: false
-        });
-    }
+    var icon = winRate < 90 ? 'warning':'success';
+    var txtClass = winRate < 90 ? 'text-danger':'text-success';
+    $('#lbWinRate').addClass(txtClass);
+    Toast(`Win rate: ${Math.floor(winRate)}%`, icon);
+
 })
+
+function winRateCalc(minYourPower, maxYourPower, minEnemyPower, maxEnemyPower){
+   var rate = ((minYourPower - minEnemyPower) + (maxYourPower - maxEnemyPower)+ ((maxEnemyPower - minYourPower) / 2)) / (maxYourPower - minEnemyPower);
+   return rate * 100;
+}
+
 
 function MsgBox(title, message, icon){
     Swal.fire({
@@ -209,3 +200,4 @@ function Toast(text, icon='info'){
         timerProgressBar: true
     });
 }
+
