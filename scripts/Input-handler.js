@@ -40,65 +40,83 @@ $('#txtAttribute3Val').on('input', function(){
 
 
 $('#txtTrainerElement').on('change', function(){
-    var data = $('#txtTrainerElement').val();
+    var select = $('#txtTrainerElement');
+    var data = select.val();
     var img = $('#imgTrainerElement');
     if(data == '')
     {
-        img.attr('src', '')
+        img.attr('src', '');
+        select.prop('style', 'background-color: #fff');
     }
     else if(data == "STR"){
         img.attr('src', 'assets/fire-icon.png');
+        select.prop('style', 'background-color: #ff5f3b');
     }
     else if(data == "DEX"){
         img.attr('src', 'assets/land-icon.png');
+        select.prop('style', 'background-color: #a16d54');
     }
     else if(data == "CHA"){
         img.attr('src', 'assets/air-icon.png');
+        select.prop('style', 'background-color: #6aea62');
     }
     else if(data == "INT"){
         img.attr('src', 'assets/water-icon.png');
+        select.prop('style', 'background-color: #17f7fd');
     }
 })
 
 $('#txtBunicornElement').on('change', function(){
-    var data = $('#txtBunicornElement').val();
+    var select = $('#txtBunicornElement');
+    var data = select.val();
     var img = $('#imgBunicornElement');
     if(data == '')
     {
-        img.attr('src', '')
+        img.attr('src', '');
+        select.prop('style', 'background-color: #fff');
     }
     else if(data == "STR"){
         img.attr('src', 'assets/fire-icon.png');
+        select.prop('style', 'background-color: #ff5f3b');
     }
     else if(data == "DEX"){
         img.attr('src', 'assets/land-icon.png');
+        select.prop('style', 'background-color: #a16d54');
     }
     else if(data == "CHA"){
         img.attr('src', 'assets/air-icon.png');
+        select.prop('style', 'background-color: #6aea62');
     }
     else if(data == "INT"){
         img.attr('src', 'assets/water-icon.png');
+        select.prop('style', 'background-color: #17f7fd');
     }
 })
 
 $('#txtEnemyElement').on('change', function(){
-    var data = $('#txtEnemyElement').val();
+    var select = $('#txtEnemyElement');
+    var data = select.val();
     var img = $('#imgEnemyElement');
     if(data == '')
     {
-        img.attr('src', '')
+        img.attr('src', '');
+        select.prop('style', 'background-color: #fff');
     }
     else if(data == "STR"){
         img.attr('src', 'assets/fire-icon.png');
+        select.prop('style', 'background-color: #ff5f3b');
     }
     else if(data == "DEX"){
         img.attr('src', 'assets/land-icon.png');
+        select.prop('style', 'background-color: #a16d54');
     }
     else if(data == "CHA"){
         img.attr('src', 'assets/air-icon.png');
+        select.prop('style', 'background-color: #6aea62');
     }
     else if(data == "INT"){
         img.attr('src', 'assets/water-icon.png');
+        select.prop('style', 'background-color: #17f7fd');
     }
 })
 
