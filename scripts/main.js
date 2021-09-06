@@ -40,13 +40,13 @@ function calcAttribute(trainerElement, attributeElement,  attributeValue){
     // CHA  -  Khí
     // PWR  -  trung tính
     if (attributeElement != trainerElement){
-      return attributeValue * 0.0025
+      return attributeValue * 0.0025;
     }
     if (attributeElement == 'PWR'){
-       return attributeValue * 0.002575
+       return attributeValue * 0.002575;
     }
     if(attributeElement == trainerElement){
-       return attributeValue * 0.002675
+       return attributeValue * 0.002675;
     } 
 }
 
@@ -56,25 +56,34 @@ const elements = {'STR' : 5, 'DEX': 4, 'CHA': 3, 'INT': 1}
 // Tính element Bonus dưa vào xung khắc các nguyên tố 
 function elementBonus(trainerElement, bunicornElement, enemyElement){
     var TraitBonus = 1
-    var t = elements[trainerElement];
-    var b = elements[bunicornElement];
-    var e = elements[enemyElement];
-    if (t == b){
-        TraitBonus += 0.075
+    if(trainerElement == bunicornElement){
+        TraitBonus += 0.075;
     }
-    //Xét trường hợp đặc biệt của Lửa vs Nước
+    if(trainerElement == 'STR' && enemyElement == 'DEX'){
+        TraitBonus += 0.075;
+    }
     if(trainerElement == 'STR' && enemyElement == 'INT'){
-        TraitBonus -= 0.075
+        TraitBonus -= 0.075;
     }
-    else{
-        if(t > e){
-            TraitBonus += 0.075
-        }
-        if(t < e){
-            TraitBonus -= 0.075
-        }
+    if(trainerElement == 'DEX' && enemyElement == 'CHA'){
+        TraitBonus += 0.075;
     }
-    return TraitBonus
+    if(trainerElement == 'DEX' && enemyElement == 'STR'){
+        TraitBonus -= 0.075;
+    }
+    if(trainerElement == 'CHA' && enemyElement == 'INT'){
+        TraitBonus += 0.075;
+    }
+    if(trainerElement == 'CHA' && enemyElement == 'DEX'){
+        TraitBonus -= 0.075;
+    }
+    if(trainerElement == 'INT' && enemyElement == 'STR'){
+        TraitBonus += 0.075;
+    }
+    if(trainerElement == 'INT' && enemyElement == 'CHA'){
+        TraitBonus -= 0.075;
+    }
+    return TraitBonus;
 }
 
 
@@ -88,7 +97,19 @@ function finalPowerValue(trainerElement, trainerLevel=1, trainerPower=0, bunicor
 }
 
 $(document).ready(function() {
-
+    var html = "<b>Dear user,</b><br/>";
+    html += "<span>We had fixed the problem related to bonus power.</span><br/>";
+    html += "<span>Thank you.</span>";
+    Swal.fire({
+        icon: 'info',
+        html: html,
+        position: 'top',
+        timer: 5000,
+        toast: true,
+        showConfirmButton: false,
+        showCloseButton: true,
+        
+    });
 });
 
 $('#btnCalc').on('click', function(){
@@ -125,13 +146,22 @@ $('#btnCalc').on('click', function(){
         MsgBox("Please select bunicorn attribute 1 element", '', 'error')
         return;
     }
-    if(attribute1Val == ''){
-        attribute1Val = 0;
+    if(attribute1 != '' && attribute1Val == ''){
+        MsgBox("Please input bunicorn attribute 1 value", '', 'error')
+        return;
     }
-    if(attribute2Val == ''){
+    if(attribute2 != '' && attribute2Val == ''){
+        MsgBox("Please input bunicorn attribute 2 value", '', 'error')
+        return;
+    }
+    else{
         attribute2Val = 0;
     }
-    if(attribute3Val == ''){
+    if(attribute3 != '' && attribute3Val == ''){
+        MsgBox("Please input bunicorn attribute 3 value", '', 'error')
+        return;
+    }
+    else{
         attribute3Val = 0;
     }
     if(bonusPower == ''){
