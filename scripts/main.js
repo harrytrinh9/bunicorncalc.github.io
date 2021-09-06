@@ -154,14 +154,14 @@ $('#btnCalc').on('click', function(){
         MsgBox("Please input bunicorn attribute 2 value", '', 'error')
         return;
     }
-    else{
+    else if (attribute2 == ''){
         attribute2Val = 0;
     }
     if(attribute3 != '' && attribute3Val == ''){
         MsgBox("Please input bunicorn attribute 3 value", '', 'error')
         return;
     }
-    else{
+    else if (attribute3 == ''){
         attribute3Val = 0;
     }
     if(bonusPower == ''){
