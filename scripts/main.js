@@ -9,9 +9,12 @@ function alignedPower(trainerElement, trainerLevel, trainerPower, attribute1, at
     attribute3Val = parseInt(attribute3Val);
 
     attribute1Val = calcAttribute(trainerElement, attribute1, attribute1Val);
-    attribute2Val = calcAttribute(trainerElement, attribute2, attribute2Val);
-    attribute3Val = calcAttribute(trainerElement, attribute3, attribute3Val);
-
+    if(attribute2Val > 0){
+        attribute2Val = calcAttribute(trainerElement, attribute2, attribute2Val);
+    }
+    if(attribute3Val){
+        attribute3Val = calcAttribute(trainerElement, attribute3, attribute3Val);
+    }
     var attributeTotal = attribute1Val + attribute2Val + attribute3Val;
     trainerPower = parseInt(trainerPower);
     bonusPower = parseInt(bonusPower);
@@ -34,15 +37,15 @@ function unalignedPower(trainerPower, trainerLevel, attribute1Val=0, attribute2V
 
 //Tính chỉ số cộng hưởng nguyên tố thuộc tính của pet vs trainer
 function calcAttribute(trainerElement, attributeElement,  attributeValue){
-    // STR  -  Lửa
-    // DEX  -  Đất
-    // INT  -  Nước
-    // CHA  -  Khí
-    // PWR  -  trung tính
+    // FIRE  -  Lửa
+    // EARTH  -  Đất
+    // WATER  -  Nước
+    // AIR  -  Khí
+    // NEUTRAL  -  trung tính
     if (attributeElement != trainerElement){
-      return attributeValue * 0.0025;
+       return attributeValue * 0.002500;
     }
-    if (attributeElement == 'PWR'){
+    if (attributeElement == 'NEUTRAL'){
        return attributeValue * 0.002575;
     }
     if(attributeElement == trainerElement){
@@ -50,8 +53,7 @@ function calcAttribute(trainerElement, attributeElement,  attributeValue){
     } 
 }
 
-// STR > DEX > CHA > INT > STR
-const elements = {'STR' : 5, 'DEX': 4, 'CHA': 3, 'INT': 1}
+// FIRE > EARTH > AIR > WATER > FIRE
 
 // Tính element Bonus dưa vào xung khắc các nguyên tố 
 function elementBonus(trainerElement, bunicornElement, enemyElement){
@@ -59,28 +61,28 @@ function elementBonus(trainerElement, bunicornElement, enemyElement){
     if(trainerElement == bunicornElement){
         TraitBonus += 0.075;
     }
-    if(trainerElement == 'STR' && enemyElement == 'DEX'){
+    if(trainerElement == 'FIRE' && enemyElement == 'EARTH'){
         TraitBonus += 0.075;
     }
-    if(trainerElement == 'STR' && enemyElement == 'INT'){
+    if(trainerElement == 'FIRE' && enemyElement == 'WATER'){
         TraitBonus -= 0.075;
     }
-    if(trainerElement == 'DEX' && enemyElement == 'CHA'){
+    if(trainerElement == 'EARTH' && enemyElement == 'AIR'){
         TraitBonus += 0.075;
     }
-    if(trainerElement == 'DEX' && enemyElement == 'STR'){
+    if(trainerElement == 'EARTH' && enemyElement == 'FIRE'){
         TraitBonus -= 0.075;
     }
-    if(trainerElement == 'CHA' && enemyElement == 'INT'){
+    if(trainerElement == 'AIR' && enemyElement == 'WATER'){
         TraitBonus += 0.075;
     }
-    if(trainerElement == 'CHA' && enemyElement == 'DEX'){
+    if(trainerElement == 'AIR' && enemyElement == 'EARTH'){
         TraitBonus -= 0.075;
     }
-    if(trainerElement == 'INT' && enemyElement == 'STR'){
+    if(trainerElement == 'WATER' && enemyElement == 'FIRE'){
         TraitBonus += 0.075;
     }
-    if(trainerElement == 'INT' && enemyElement == 'CHA'){
+    if(trainerElement == 'WATER' && enemyElement == 'AIR'){
         TraitBonus -= 0.075;
     }
     return TraitBonus;
@@ -97,19 +99,19 @@ function finalPowerValue(trainerElement, trainerLevel=1, trainerPower=0, bunicor
 }
 
 $(document).ready(function() {
-    var html = "<b>Dear user,</b><br/>";
-    html += "<span>We had fixed the problem related to bonus power.</span><br/>";
-    html += "<span>Thank you.</span>";
-    Swal.fire({
-        icon: 'info',
-        html: html,
-        position: 'top',
-        timer: 5000,
-        toast: true,
-        showConfirmButton: false,
-        showCloseButton: true,
+    // var html = "<b>Dear user,</b><br/>";
+    // html += "<span>We had fixed the problem related to bonus power.</span><br/>";
+    // html += "<span>Thank you.</span>";
+    // Swal.fire({
+    //     icon: 'info',
+    //     html: html,
+    //     position: 'top',
+    //     timer: 5000,
+    //     toast: true,
+    //     showConfirmButton: false,
+    //     showCloseButton: true,
         
-    });
+    // });
 });
 
 $('#btnCalc').on('click', function(){
@@ -129,36 +131,36 @@ $('#btnCalc').on('click', function(){
     var enemyElement = $('#txtEnemyElement').val();
     //Check input
     if (trainerElement == ''){
-        MsgBox("Please select your trainer element", '', 'error')
+        MsgBox("Please select your trainer element", '', 'error');
         return;
     }
     if(trainerLevel == ''){
-        trainerLevel = 0
+        trainerLevel = 0;
     }
     if(trainerPower == ''){
-        trainerPower = 0
+        trainerPower = 0;
     }
     if (bunicornElement == ''){
-        MsgBox("Please select your bunicorn element", '', 'error')
+        MsgBox("Please select your bunicorn element", '', 'error');
         return;
     }
     if (attribute1 == ''){
-        MsgBox("Please select bunicorn attribute 1 element", '', 'error')
+        MsgBox("Please select bunicorn attribute 1 element", '', 'error');
         return;
     }
     if(attribute1 != '' && attribute1Val == ''){
-        MsgBox("Please input bunicorn attribute 1 value", '', 'error')
+        MsgBox("Please input bunicorn attribute 1 value", '', 'error');
         return;
     }
     if(attribute2 != '' && attribute2Val == ''){
-        MsgBox("Please input bunicorn attribute 2 value", '', 'error')
+        MsgBox("Please input bunicorn attribute 2 value", '', 'error');
         return;
     }
     else if (attribute2 == ''){
         attribute2Val = 0;
     }
     if(attribute3 != '' && attribute3Val == ''){
-        MsgBox("Please input bunicorn attribute 3 value", '', 'error')
+        MsgBox("Please input bunicorn attribute 3 value", '', 'error');
         return;
     }
     else if (attribute3 == ''){
@@ -168,11 +170,11 @@ $('#btnCalc').on('click', function(){
         bonusPower = 0;
     }
     if (enemyElement == ''){
-        MsgBox("Please select enemy element", '', 'error')
+        MsgBox("Please select enemy element", '', 'error');
         return;
     }
     if (enemyElement == ''){
-        MsgBox("Please input enemy power", '', 'error')
+        MsgBox("Please input enemy power", '', 'error');
         return;
     }
     var enemyPwr = $('#txtEnemyPower').val();
@@ -180,22 +182,20 @@ $('#btnCalc').on('click', function(){
     var maxEnemyPwr = parseInt(enemyPwr) * 1.1;
     var winRate = 0.0;
     if(trainerElement == bunicornElement){
-        var pwr = finalPowerValue(trainerElement, trainerLevel, trainerPower, bunicornElement,  attribute1, attribute2, attribute3, attribute1Val, attribute2Val, attribute3Val, bonusPower, enemyElement)
-        var str = `Your power: ${Math.floor(pwr[0])} ~ ${Math.floor(pwr[1])}`;
+        var pwr = finalPowerValue(trainerElement, trainerLevel, trainerPower, bunicornElement,  attribute1, attribute2, attribute3, attribute1Val, attribute2Val, attribute3Val, bonusPower, enemyElement);
+        var str = `<i class="bi bi-lightning-charge"></i> Your power:     ${Math.floor(pwr[0])} ~ ${Math.floor(pwr[1])}`;
         $('#lbResult').html(str);
-        // winRate1 = (1.0 - (maxEnemyPwr - pwr[0]) / pwr[1]) * 100.0;
-        winRate = winRateCalc(pwr[0], pwr[1], minEnemyPwr, maxEnemyPwr);
+        winRate = winRateCalc(Math.floor(pwr[0]), Math.floor(pwr[1]), Math.floor(minEnemyPwr), Math.floor(maxEnemyPwr));
     }
     else{
         var b = unalignedPower(trainerPower, trainerLevel, attribute1Val, attribute2Val, attribute3Val, bonusPower);
         var myMinPwr = Math.floor(b * 0.9);
         var myMaxPwr = Math.floor(b * 1.1);
-        var str = `Your power: ${myMinPwr} ~ ${myMaxPwr}`;
+        var str = `<i class="bi bi-lightning-charge"></i> Your power:     ${myMinPwr} ~ ${myMaxPwr}`;
         $('#lbResult').html(str);
-        // winRate1 = (1 - (maxEnemyPwr - myMinPwr)/myMaxPwr) * 100;
-        winRate = winRateCalc(myMinPwr, myMaxPwr, minEnemyPwr, maxEnemyPwr);
+        winRate = winRateCalc(Math.floor(myMinPwr), Math.floor(myMaxPwr), Math.floor(minEnemyPwr), Math.floor(maxEnemyPwr));
     }
-    $('#lbWinRate').html('Win rate: ' + Math.floor(winRate) + '%');
+    $('#lbWinRate').html('<i class="bi bi-trophy"></i> Win rate: ' + Math.floor(winRate) + '%');
     $('#lbWinRate').prop('class', '');
     var icon = winRate < 90 ? 'warning':'success';
     var txtClass = winRate < 90 ? 'text-danger':'text-success';
@@ -204,9 +204,38 @@ $('#btnCalc').on('click', function(){
 
 })
 
-function winRateCalc(minYourPower, maxYourPower, minEnemyPower, maxEnemyPower){
+function winRateCalc2(minYourPower, maxYourPower, minEnemyPower, maxEnemyPower){
    var rate = ((minYourPower - minEnemyPower) + (maxYourPower - maxEnemyPower)+ ((maxEnemyPower - minYourPower) / 2)) / (maxYourPower - minEnemyPower);
    return rate * 100;
+}
+
+function winRateCalc(minYourPower, maxYourPower, minEnemyPower, maxEnemyPower){
+    let minimumPower = Math.min(minYourPower, maxYourPower, minEnemyPower, maxEnemyPower);
+    let maximumPower = Math.max(minYourPower, maxYourPower, minEnemyPower, maxEnemyPower);
+    let totalCount = maximumPower - minimumPower + 1;
+   let match = 0;
+   for (let e = minEnemyPower; e <= maxEnemyPower; e++) {
+       for (let a = minYourPower; a <= maxYourPower; a++) {
+           if(a == e)
+           {
+               match ++;
+           }
+       }
+       
+   }
+   let mR = (match / totalCount);
+   let diff1 = minYourPower - minEnemyPower;
+   let diff2  = maxYourPower - maxEnemyPower;
+   let diff1R = diff1 / totalCount;
+   let diff2R = diff2 / totalCount;
+   let rate = diff1R + diff2R + (mR / 2);
+//    let rate = ((minYourPower - minEnemyPower) + (maxYourPower - maxEnemyPower) + (match / 2)) / totalCount;
+   if(rate <= 0){
+       return 0;
+   }
+   else{
+    return rate * 100;
+   }
 }
 
 
@@ -227,7 +256,7 @@ function Toast(text, icon='info'){
         position: 'top',
         toast: true,
         showConfirmButton: false,
-        timerProgressBar: true
+        timerProgressBar: true,
     });
 }
 

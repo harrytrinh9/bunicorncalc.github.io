@@ -48,19 +48,19 @@ $('#txtTrainerElement').on('change', function(){
         img.attr('src', '');
         select.prop('style', 'background-color: #fff');
     }
-    else if(data == "STR"){
+    else if(data == "FIRE"){
         img.attr('src', 'assets/fire-icon.png');
         select.prop('style', 'background-color: #ff5f3b');
     }
-    else if(data == "DEX"){
+    else if(data == "EARTH"){
         img.attr('src', 'assets/land-icon.png');
         select.prop('style', 'background-color: #a16d54');
     }
-    else if(data == "CHA"){
+    else if(data == "AIR"){
         img.attr('src', 'assets/air-icon.png');
         select.prop('style', 'background-color: #6aea62');
     }
-    else if(data == "INT"){
+    else if(data == "WATER"){
         img.attr('src', 'assets/water-icon.png');
         select.prop('style', 'background-color: #17f7fd');
     }
@@ -75,19 +75,19 @@ $('#txtBunicornElement').on('change', function(){
         img.attr('src', '');
         select.prop('style', 'background-color: #fff');
     }
-    else if(data == "STR"){
+    else if(data == "FIRE"){
         img.attr('src', 'assets/fire-icon.png');
         select.prop('style', 'background-color: #ff5f3b');
     }
-    else if(data == "DEX"){
+    else if(data == "EARTH"){
         img.attr('src', 'assets/land-icon.png');
         select.prop('style', 'background-color: #a16d54');
     }
-    else if(data == "CHA"){
+    else if(data == "AIR"){
         img.attr('src', 'assets/air-icon.png');
         select.prop('style', 'background-color: #6aea62');
     }
-    else if(data == "INT"){
+    else if(data == "WATER"){
         img.attr('src', 'assets/water-icon.png');
         select.prop('style', 'background-color: #17f7fd');
     }
@@ -102,19 +102,19 @@ $('#txtEnemyElement').on('change', function(){
         img.attr('src', '');
         select.prop('style', 'background-color: #fff');
     }
-    else if(data == "STR"){
+    else if(data == "FIRE"){
         img.attr('src', 'assets/fire-icon.png');
         select.prop('style', 'background-color: #ff5f3b');
     }
-    else if(data == "DEX"){
+    else if(data == "EARTH"){
         img.attr('src', 'assets/land-icon.png');
         select.prop('style', 'background-color: #a16d54');
     }
-    else if(data == "CHA"){
+    else if(data == "AIR"){
         img.attr('src', 'assets/air-icon.png');
         select.prop('style', 'background-color: #6aea62');
     }
-    else if(data == "INT"){
+    else if(data == "WATER"){
         img.attr('src', 'assets/water-icon.png');
         select.prop('style', 'background-color: #17f7fd');
     }
@@ -126,7 +126,7 @@ $('#txtEnemyPower').on('input', function(){
         MsgBox('Only input the number to this field.', `You already inputed: ${pwr}`, 'error');
         $('#txtEnemyPower').val('');
     }
-    var output = `Enemy power: ${Math.floor(pwr * 0.9)} ~ ${Math.floor(pwr * 1.1)}`;
+    var output = `<i class="bi bi-lightning-charge-fill"></i> Enemy power: ${Math.floor(pwr * 0.9)} ~ ${Math.floor(pwr * 1.1)}`;
     $('#lbEnemyPwrRange').html(output);
     $('#lbResult').html('');
     $('#lbWinRate').html('');
