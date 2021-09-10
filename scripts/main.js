@@ -19,7 +19,8 @@ function alignedPower(trainerElement, trainerLevel, trainerPower, attribute1, at
     trainerPower = parseInt(trainerPower);
     bonusPower = parseInt(bonusPower);
     trainerLevel = parseInt(trainerLevel);
-    var result = ((attributeTotal + 1) * trainerPower) + bonusPower + 15 * (trainerLevel - 1);
+    // var result = ((attributeTotal + 1) * trainerPower) + bonusPower + 15 * (trainerLevel - 1);
+    var result = ((attributeTotal + 1) * trainerPower) + bonusPower;
     return result;
 }
 
@@ -31,7 +32,8 @@ function unalignedPower(trainerPower, trainerLevel, attribute1Val=0, attribute2V
    bonusPower = parseInt(bonusPower);
    trainerLevel = parseInt(trainerLevel);
    var attributeTotal = attribute1Val + attribute2Val +  attribute3Val;
-   var result = (((attributeTotal * 0.0025) + 1 ) * trainerPower) + bonusPower + 15 * (trainerLevel - 1);
+//    var result = (((attributeTotal * 0.0025) + 1 ) * trainerPower) + bonusPower + 15 * (trainerLevel - 1);
+   var result = (((attributeTotal * 0.0025) + 1 ) * trainerPower) + bonusPower;
    return result;
 }
 
